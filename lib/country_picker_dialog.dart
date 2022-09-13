@@ -79,17 +79,22 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
   Widget build(BuildContext context) {
     final mediaWidth = MediaQuery.of(context).size.width;
     final width = 380;
-    final defaultHorizontalPadding = 0.0;
-    final defaultVerticalPadding = 0.0;
+    final defaultHorizontalPadding = 40.0;
+    final defaultVerticalPadding = 24.0;
     return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
       insetPadding: EdgeInsets.symmetric(
           vertical: defaultVerticalPadding,
-          horizontal: defaultHorizontalPadding),
+          horizontal: mediaWidth > (width + defaultHorizontalPadding * 2)
+              ? (mediaWidth - width) / 2
+              : defaultHorizontalPadding),
       backgroundColor: widget.style?.backgroundColor,
       child: LayoutBuilder(builder: (context, constraints) {
         return Container(
           padding: widget.style?.padding ?? EdgeInsets.all(10),
-          height: constraints.maxHeight,
+          height: constraints.maxHeight * 0.8,
           child: Column(
             children: <Widget>[
               widget.style?.title ?? SizedBox(),

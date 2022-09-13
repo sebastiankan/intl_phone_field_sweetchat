@@ -42,19 +42,12 @@ class _MobileCountryPickerDialogState extends State<MobileCountryPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaWidth = MediaQuery.of(context).size.width;
-    final width = 380;
-    final defaultHorizontalPadding = 40.0;
-    final defaultVerticalPadding = 24.0;
+    final defaultHorizontalPadding = 0.0;
+    final defaultVerticalPadding = 0.0;
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.0),
-      ),
-      // insetPadding: EdgeInsets.symmetric(
-      //     vertical: defaultVerticalPadding,
-      //     horizontal: mediaWidth > (width + defaultHorizontalPadding * 2)
-      //         ? (mediaWidth - width) / 2
-      //         : defaultHorizontalPadding),
+      insetPadding: EdgeInsets.symmetric(
+          vertical: defaultVerticalPadding,
+          horizontal: defaultHorizontalPadding),
       backgroundColor: widget.style?.backgroundColor,
       child: LayoutBuilder(builder: (context, constraints) {
         return Container(
