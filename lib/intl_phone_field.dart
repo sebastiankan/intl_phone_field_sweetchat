@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
+import 'package:intl_phone_field/mobile_country_picker_dialog.dart';
 
 import './countries.dart';
 import './phone_number.dart';
@@ -232,6 +233,8 @@ class IntlPhoneField extends StatefulWidget {
   /// If unset, defaults to [EdgeInsets.zero].
   final EdgeInsets flagsButtonMargin;
 
+  final bool isMobile;
+
   IntlPhoneField({
     Key? key,
     this.initialCountryCode,
@@ -276,6 +279,7 @@ class IntlPhoneField extends StatefulWidget {
     this.showCursor = true,
     this.pickerDialogStyle,
     this.flagsButtonMargin = EdgeInsets.zero,
+    required this.isMobile,
   }) : super(key: key);
 
   @override
@@ -338,18 +342,30 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       context: context,
       useRootNavigator: false,
       builder: (context) => StatefulBuilder(
-        builder: (ctx, setState) => CountryPickerDialog(
-          style: widget.pickerDialogStyle,
-          filteredCountries: filteredCountries,
-          searchText: widget.searchText,
-          countryList: _countryList,
-          selectedCountry: _selectedCountry,
-          onCountryChanged: (Country country) {
-            _selectedCountry = country;
-            widget.onCountryChanged?.call(country);
-            setState(() {});
-          },
-        ),
+        builder: (ctx, setState) => widget.isMobile
+            ? MobileCountryPickerDialog(
+                style: widget.pickerDialogStyle,
+                filteredCountries: filteredCountries,
+                searchText: widget.searchText,
+                countryList: _countryList,
+                selectedCountry: _selectedCountry,
+                onCountryChanged: (Country country) {
+                  _selectedCountry = country;
+                  widget.onCountryChanged?.call(country);
+                  setState(() {});
+                })
+            : CountryPickerDialog(
+                style: widget.pickerDialogStyle,
+                filteredCountries: filteredCountries,
+                searchText: widget.searchText,
+                countryList: _countryList,
+                selectedCountry: _selectedCountry,
+                onCountryChanged: (Country country) {
+                  _selectedCountry = country;
+                  widget.onCountryChanged?.call(country);
+                  setState(() {});
+                },
+              ),
       ),
     );
     if (this.mounted) setState(() {});
