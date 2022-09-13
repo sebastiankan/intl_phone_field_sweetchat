@@ -52,7 +52,6 @@ class _MobileCountryPickerDialogState extends State<MobileCountryPickerDialog> {
       child: LayoutBuilder(builder: (context, constraints) {
         return Container(
           padding: widget.style?.padding ?? EdgeInsets.all(10),
-          height: constraints.maxHeight * 0.8,
           child: Column(
             children: <Widget>[
               widget.style?.title ?? SizedBox(),
